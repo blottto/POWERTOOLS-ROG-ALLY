@@ -11,8 +11,8 @@ pushd /tmp/powertools_binary
 rm -rf *
 
 systemctl stop plugin_loader || true
-curl -L https://github.com/hicder/PowerTools/releases/latest/download/backend -o backend
-curl -L https://github.com/hicder/PowerTools/releases/latest/download/index.js -o index.js
+curl -L https://github.com/blottto/POWERTOOLS-ROG-ALLY/releases/latest/download/backend -o backend
+curl -L https://github.com/blottto/POWERTOOLS-ROG-ALLY/releases/latest/download/index.js -o index.js
 
 echo "Removing cached limit files..."
 rm $CONFIG_FOLDER/limits_cache.json || true
