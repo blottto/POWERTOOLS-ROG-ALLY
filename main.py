@@ -33,3 +33,33 @@ class Plugin:
             except subprocess.TimeoutExpired:
                 self.backend_proc.kill()
             self.backend_proc = None
+import { definePlugin, PanelSection, ServerAPI, staticClasses } from "decky-frontend-lib";
+import { VFC, useEffect, useState } from "react";
+
+const Content: VFC<{ serverAPI: ServerAPI }> = ({ serverAPI }) => {
+  const [powerData, setPowerData] = useState<any>(null);
+
+  useEffect(() => {
+    serverAPI.callPluginMethod("get_power_state", {}).then(({ result }) => {
+      setPowerData(result);
+    });
+  }, []);
+
+  return (
+    <PanelSection title="Estado de Energía">
+      {powerData ? (
+        <div className={staticClasses.Text}>{JSON.stringify(powerData, null, 2)}</div>
+      ) : (
+        <div className={staticClasses.Text}>Cargando...</div>
+      )}
+    </PanelSection>
+  );
+};
+
+export default definePlugin((serverAPI) => {
+  return {
+    title: "PowerTools ROG Ally",
+    content: <Content serverAPI={serverAPI} />, 
+    icon: <img src="decky-plugin://powertools-rog-ally/icon.png" />
+  };
+});
